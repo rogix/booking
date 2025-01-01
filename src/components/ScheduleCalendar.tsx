@@ -10,16 +10,19 @@ function Calendar({
 	className,
 	classNames,
 	showOutsideDays = true,
+	bookableDates,
 	...props
 }: CalendarProps) {
-	const bookableDates = [
-		new Date(2025, 0, 2),
-		new Date(2025, 0, 3),
-		new Date(2025, 0, 6),
-		new Date(2025, 0, 7),
-	];
+	console.log("bookableDates", bookableDates);
+
+	const handleDisabled = (date: Date) => {
+		return !bookableDates?.some(
+			(bookableDate) => bookableDate.toDateString() === date.toDateString(),
+		);
+	};
+
 	return (
-		<div className="py-8 mx-auto">
+		<div className="p-5 mx-auto">
 			<h1 className="text-xl font-bold text-accent-foreground pb-5">
 				Select a Date and Time
 			</h1>
@@ -28,17 +31,7 @@ function Calendar({
 				modifiers={{
 					bookable: bookableDates,
 				}}
-				onDayClick={(date, modifiers) => {
-					if (modifiers.bookable) {
-						alert("This day is already booked");
-					}
-				}}
-				disabled={(date) => {
-					return !bookableDates?.some(
-						(bookableDate) =>
-							bookableDate.toDateString() === date.toDateString(),
-					);
-				}}
+				disabled={handleDisabled}
 				classNames={{
 					months: "flex flex-col",
 					month: "justify-center",
@@ -64,12 +57,12 @@ function Calendar({
 					),
 					range_end: "day-range-end",
 					selected:
-						"bg-primary text-primary-foreground hover:bg-primary hover:text-primary-foreground focus:bg-primary focus:text-primary-foreground",
-					today: "text-blue-500 hover:bg-primary/10 hover:text-primary",
+						"bg-blue-500 text-primary-foreground hover:bg-primary hover:text-primary-foreground focus:bg-primary focus:text-primary-foreground",
+					today: "text-blue-500 bg-white hover:bg-white hover:text-primary",
 					outside:
 						"day-outside text-muted-foreground aria-selected:bg-accent/50 aria-selected:text-muted-foreground",
 					disabled:
-						"text-gray-500 bg-transparent font-normal hover:bg-transparent hover:text-gray-500",
+						"text-gray-600 bg-transparent font-normal hover:bg-transparent hover:text-gray-500",
 					range_middle:
 						"aria-selected:bg-accent aria-selected:text-accent-foreground",
 					hidden: "invisible",
