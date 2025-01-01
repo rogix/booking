@@ -1,10 +1,9 @@
-import { Button } from "./components/ui/button";
+import { Scheduler } from "./components/scheduler";
 
 function App() {
 	return (
 		<>
-			<div className="text-yellow-700">Hello</div>
-			<Button variant="default">Click me</Button>
+			<Scheduler />
 		</>
 	);
 }
