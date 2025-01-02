@@ -1,8 +1,8 @@
+import { cn } from "@/lib/utils";
 import { format } from "date-fns";
+import { se } from "date-fns/locale";
 import { useState } from "react";
 import { Button, buttonVariants } from "./ui/button";
-import { cn } from "@/lib/utils";
-import { se } from "date-fns/locale";
 
 interface TimeSlotSelectorProps {
 	timeSlots: string[];
