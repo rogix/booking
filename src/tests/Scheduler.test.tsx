@@ -1,7 +1,7 @@
-import { describe, test, expect } from "vitest";
+import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { render, screen, waitFor } from "@testing-library/react";
 import { MemoryRouter } from "react-router";
-import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
+import { describe, expect, test } from "vitest";
 
 import { Scheduler } from "@/scheduler/Scheduler";
 
