@@ -1,6 +1,6 @@
+import { handleDateFromURL } from "@/scheduler/utils/handleDateFromURL";
 import { format } from "date-fns";
 import { useState } from "react";
-import { handleDateFromURL } from "./scheduler";
 import { Button } from "./ui/button";
 
 interface TimeSlotSelectorProps {
