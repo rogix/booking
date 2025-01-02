@@ -99,20 +99,20 @@ export function Scheduler() {
 
 	return (
 		<div
-			className={`flex flex-col h-screen justify-center ${maxW} min-w-[800px] mx-auto`}
+			className={`flex flex-col md:p-10 lg:p-0 lg:h-screen justify-center ${maxW} lg:min-w-[800px] mx-auto`}
 		>
-			<section className="flex w-full justify-between border mx-auto min-h-[85%] rounded-md shadow-xl overflow-auto">
+			<section className="flex flex-col lg:flex-row w-full justify-between md:border mx-auto lg:min-h-[85%] rounded-md md:shadow-xl overflow-auto">
 				<ScheduleInfo />
 
 				{selectedSlot ? (
 					<UserForm onSubmit={handleFormSubmit} />
 				) : (
-					<div className="flex">
+					<div className="flex justify-center p-5 lg:p-0">
 						<Calendar
 							mode="single"
 							selected={selectedDateToDisplay}
+							isDaySelected={selectedDateToDisplay ? () => true : undefined}
 							onSelect={handleDateSelect}
-							className="rounded-md"
 							bookableDates={Array.from(timeSlotsByDay.keys()).map(
 								(date) => new Date(handleDateFromURL(date as string)),
 							)}

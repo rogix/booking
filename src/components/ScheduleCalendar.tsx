@@ -4,12 +4,14 @@ import { buttonVariants } from "./ui/button";
 
 type CalendarProps = DayPickerProps & {
 	bookableDates?: Date[];
+	isDaySelected?: (date: Date) => boolean;
 };
 
 function Calendar({
 	className,
 	classNames,
 	showOutsideDays = true,
+	isDaySelected,
 	bookableDates,
 	...props
 }: CalendarProps) {
@@ -20,7 +22,7 @@ function Calendar({
 	};
 
 	return (
-		<div className="p-5 mx-auto">
+		<div className={`p-5 mx-auto ${isDaySelected ? "hidden md:block" : ""}`}>
 			<h1 className="text-xl font-bold text-accent-foreground pb-5">
 				Select a Date and Time
 			</h1>

@@ -17,8 +17,8 @@ const TimeSlotSelector: React.FC<TimeSlotSelectorProps> = ({
 	const [selectedIndex, setSelectedIndex] = useState<number | null>(null);
 
 	return timeSlots.length ? (
-		<div className="px-5 mt-20 w-72 overflow-hidden">
-			<h2 className="font-normal mb-8">
+		<div className="px-5 mt-20 w-full md:w-72 overflow-hidden">
+			<h2 className="font-bold md:font-normal text-xl text-center md:text-start md:text-base mb-8 ">
 				{format(handleDateFromURL(selectedDate), "EEEE, MMMM d")}
 			</h2>
 			<ul className="flex flex-col gap-2">
