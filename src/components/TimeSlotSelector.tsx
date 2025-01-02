@@ -1,5 +1,6 @@
 import { format } from "date-fns";
 import { useState } from "react";
+import { handleDateFromURL } from "./scheduler";
 import { Button } from "./ui/button";
 
 interface TimeSlotSelectorProps {
@@ -18,7 +19,7 @@ const TimeSlotSelector: React.FC<TimeSlotSelectorProps> = ({
 	return timeSlots.length ? (
 		<div className="px-5 mt-20 w-72 overflow-hidden">
 			<h2 className="font-normal mb-8">
-				{format(selectedDate, "EEEE, MMMM d")}
+				{format(handleDateFromURL(selectedDate), "EEEE, MMMM d")}
 			</h2>
 			<ul className="flex flex-col gap-2">
 				{timeSlots.map((slot, index) => (

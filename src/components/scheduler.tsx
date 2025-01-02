@@ -9,7 +9,7 @@ import TimeSlotSelector from "./TimeSlotSelector";
 import UserForm from "./UserForm";
 
 export const handleDateFromURL = (dateString: string) => {
-	const timeZone = "America/Sao_Paulo";
+	const timeZone = "UTC";
 	const parsedDate = parseISO(dateString);
 	const zonedDate = toZonedTime(parsedDate, timeZone);
 
