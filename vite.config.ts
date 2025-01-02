@@ -3,6 +3,8 @@ import react from "@vitejs/plugin-react";
 import { defineConfig as defineViteConfig, mergeConfig } from "vite";
 import { defineConfig as defineVitestConfig } from "vitest/config";
 
+process.env.TZ = "UTC";
+
 const viteConfig = defineViteConfig({
 	plugins: [react()],
 	resolve: {
