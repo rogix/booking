@@ -1,8 +1,6 @@
-import { cn } from "@/lib/utils";
 import { format } from "date-fns";
-import { se } from "date-fns/locale";
 import { useState } from "react";
-import { Button, buttonVariants } from "./ui/button";
+import { Button } from "./ui/button";
 
 interface TimeSlotSelectorProps {
 	timeSlots: string[];
@@ -13,7 +11,6 @@ const TimeSlotSelector: React.FC<TimeSlotSelectorProps> = ({
 	timeSlots,
 	onSelect,
 }) => {
-	const [selectedSlot, setSelectedSlot] = useState<string | null>(null);
 	const [selectedIndex, setSelectedIndex] = useState<number | null>(null);
 
 	return timeSlots.length ? (
@@ -50,7 +47,6 @@ const TimeSlotSelector: React.FC<TimeSlotSelectorProps> = ({
 									size="lg"
 									className="w-full flex-1 animate-slide-in-right font-bold text-md opacity-100 bg-primary text-primary-foreground hover:bg-primary/90 hover:text-primary-foreground"
 									onClick={() => {
-										setSelectedSlot(slot);
 										onSelect(slot);
 										setSelectedIndex(null);
 									}}
