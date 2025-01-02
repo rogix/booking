@@ -1,6 +1,8 @@
 import { format } from "date-fns";
 import { useState } from "react";
-import { Button } from "./ui/button";
+import { Button, buttonVariants } from "./ui/button";
+import { cn } from "@/lib/utils";
+import { se } from "date-fns/locale";
 
 interface TimeSlotSelectorProps {
 	timeSlots: string[];
@@ -12,32 +14,51 @@ const TimeSlotSelector: React.FC<TimeSlotSelectorProps> = ({
 	onSelect,
 }) => {
 	const [selectedSlot, setSelectedSlot] = useState<string | null>(null);
+	const [selectedIndex, setSelectedIndex] = useState<number | null>(null);
 
 	return timeSlots.length ? (
-		<div className="px-5 mt-20 w-80 overflow-hidden">
+		<div className="px-5 mt-20 w-68 overflow-hidden">
 			<h2 className="font-normal mb-8">Wednesday, January 2</h2>
 			<ul className="flex flex-col gap-2">
-				{timeSlots.map((slot) => (
+				{timeSlots.map((slot, index) => (
 					<li
 						key={slot}
 						onClick={() => {
-							setSelectedSlot(slot);
-							onSelect(slot);
+							setSelectedIndex(index);
 						}}
 						onKeyDown={(e) => {
 							if (e.key === "Enter" || e.key === " ") {
-								setSelectedSlot(slot);
-								onSelect(slot);
+								setSelectedIndex(index);
 							}
 						}}
-						style={{
-							cursor: "pointer",
-							background: selectedSlot === slot ? "lightblue" : "white",
-						}}
 					>
-						<Button variant="outline" className="w-full">
-							{format(new Date(slot), "hh:mm:ss a")}
-						</Button>
+						<div className="flex justify-between gap-2">
+							<Button
+								variant="outline"
+								className={`flex-1 border-primary/50 text-primary hover:bg-transparent text-md font-bold ${
+									selectedIndex === index
+										? "bg-accent text-primary-foreground cursor-default animate-shrink"
+										: ""
+								}`}
+								size="lg"
+							>
+								{format(new Date(slot), "HH:mm")}
+							</Button>
+							{selectedIndex === index && (
+								<Button
+									variant="outline"
+									size="lg"
+									className="w-full flex-1 animate-slide-in-right font-bold text-md opacity-100 bg-primary text-primary-foreground hover:bg-primary/90 hover:text-primary-foreground"
+									onClick={() => {
+										setSelectedSlot(slot);
+										onSelect(slot);
+										setSelectedIndex(null);
+									}}
+								>
+									Next
+								</Button>
+							)}
+						</div>
 					</li>
 				))}
 			</ul>

@@ -51,6 +51,20 @@ module.exports = {
           5: "hsl(var(--chart-5))",
         },
       },
+      keyframes: {
+        shrink: {
+          "0%": { flexBasis: "100%" },
+          "100%": { flexBasis: "50%" },
+        },
+        slideInRight: {
+          "0%": { transform: "translateX(100%)", opacity: 0 },
+          "100%": { transform: "translateX(0)", opacity: 1 },
+        },
+      },
+      animation: {
+        shrink: "shrink 0.5s ease-in-out forwards",
+        "slide-in-right": "slideInRight 0.5s ease-in-out forwards",
+      },
     },
     fontFamily: {
       sans: ["Proxima Nova", "sans-serif"],
