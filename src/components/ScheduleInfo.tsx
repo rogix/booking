@@ -10,7 +10,7 @@ export function ScheduleInfo() {
 	const isNotHome = location.search.includes("month");
 
 	return (
-		<div className="flex flex-col justify-between gap-4 border-r min-w-[400px] relative">
+		<div className="flex flex-col justify-between gap-4 border-r min-w-[360px] relative">
 			<div className="absolute top-0 left-0 p-5">
 				{isNotHome && (
 					<button

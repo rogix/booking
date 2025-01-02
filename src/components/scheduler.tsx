@@ -155,6 +155,9 @@ export function Scheduler() {
 							required
 						/>
 						<TimeSlotSelector
+							selectedDate={
+								selectedDate ? format(selectedDate, "yyyy-MM-dd") : ""
+							}
 							timeSlots={slotsForSelectedDate}
 							onSelect={handleSlotSelection}
 						/>

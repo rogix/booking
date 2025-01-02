@@ -5,17 +5,21 @@ import { Button } from "./ui/button";
 interface TimeSlotSelectorProps {
 	timeSlots: string[];
 	onSelect: (timeSlot: string) => void;
+	selectedDate: string;
 }
 
 const TimeSlotSelector: React.FC<TimeSlotSelectorProps> = ({
 	timeSlots,
 	onSelect,
+	selectedDate,
 }) => {
 	const [selectedIndex, setSelectedIndex] = useState<number | null>(null);
 
 	return timeSlots.length ? (
-		<div className="px-5 mt-20 w-68 overflow-hidden">
-			<h2 className="font-normal mb-8">Wednesday, January 2</h2>
+		<div className="px-5 mt-20 w-72 overflow-hidden">
+			<h2 className="font-normal mb-8">
+				{format(selectedDate, "EEEE, MMMM d")}
+			</h2>
 			<ul className="flex flex-col gap-2">
 				{timeSlots.map((slot, index) => (
 					<li
