@@ -130,8 +130,6 @@ export function Scheduler() {
 		? timeSlotsByDay.get(format(selectedDate, "yyyy-MM-dd")) || []
 		: [];
 
-	console.log("selectedDate", Boolean(selectedDate));
-
 	const maxW = selectedDate
 		? "max-w-[1060px] transition-all duration-700"
 		: "max-w-[800px]";

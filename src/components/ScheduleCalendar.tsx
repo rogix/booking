@@ -13,8 +13,6 @@ function Calendar({
 	bookableDates,
 	...props
 }: CalendarProps) {
-	console.log("bookableDates", bookableDates);
-
 	const handleDisabled = (date: Date) => {
 		return !bookableDates?.some(
 			(bookableDate) => bookableDate.toDateString() === date.toDateString(),
