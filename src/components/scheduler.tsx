@@ -80,7 +80,7 @@ export function Scheduler() {
 		fetchSlots();
 	}, [currentMonth, searchParams]);
 
-	const handleDateSelect = (date: Date | null) => {
+	const handleDateSelect: (date: Date | null) => void = (date: Date | null) => {
 		if (date) {
 			const timeZone = "America/Sao_Paulo";
 

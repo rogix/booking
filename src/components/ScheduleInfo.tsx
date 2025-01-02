@@ -1,24 +1,29 @@
 import logo from "@/assets/image-logo.png";
 import organizer from "@/assets/organizer.jpg";
-import { Clock, Video } from "lucide-react";
-import { useNavigate } from "react-router";
+import { ArrowLeft, Clock, Video } from "lucide-react";
+import { useLocation, useNavigate } from "react-router";
 
 export function ScheduleInfo() {
 	const navigate = useNavigate();
+	const location = useLocation();
+
+	const isNotHome = location.search.includes("month");
 
 	return (
-		<div className="flex flex-col justify-between gap-4 border-r min-w-[340px] w-[340px] relative">
+		<div className="flex flex-col justify-between gap-4 border-r min-w-[400px] relative">
 			<div className="absolute top-0 left-0 p-5">
-				<button
-					type="button"
-					className="text-accent"
-					onClick={() => {
-						navigate("/");
-						window.location.reload();
-					}}
-				>
-					Return
-				</button>
+				{isNotHome && (
+					<button
+						type="button"
+						className="text-primary border rounded-full p-2"
+						onClick={() => {
+							navigate("/");
+							window.location.reload();
+						}}
+					>
+						<ArrowLeft strokeWidth={2.75} />
+					</button>
+				)}
 			</div>
 			<div className="border-b w-full flex items-center justify-center p-7">
 				<img src={logo} alt="Company" width={120} />
