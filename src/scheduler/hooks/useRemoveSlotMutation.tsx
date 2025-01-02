@@ -24,7 +24,7 @@ export function useRemoveSlotMutation() {
 
 			return { previousSlots: previousData };
 		},
-		onError: (error, variables, context) => {
+		onError: (_error, _variables, context) => {
 			if (context?.previousSlots) {
 				queryClient.setQueryData(["availableTimes"], context.previousSlots);
 			}
