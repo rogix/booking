@@ -12,8 +12,6 @@ import { useRemoveSlotMutation } from "./hooks/useRemoveSlotMutation";
 import { useTimeSlots } from "./hooks/useTimeSlots";
 import { handleDateFromURL } from "./utils/handleDateFromURL";
 
-import { Button } from "@/components/ui/button";
-
 export function Scheduler() {
 	const [selectedSlot, setSelectedSlot] = React.useState<string | null>(null);
 	const [currentMonth, setCurrentMonth] = React.useState<Date>(new Date());
