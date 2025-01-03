@@ -7,19 +7,23 @@ import { Calendar } from "@/components/ScheduleCalendar";
 import { ScheduleInfo } from "@/components/ScheduleInfo";
 import TimeSlotSelector from "@/components/TimeSlotSelector";
 import UserForm from "@/components/UserForm";
+
 import { useRemoveSlotMutation } from "./hooks/useRemoveSlotMutation";
 import { useTimeSlots } from "./hooks/useTimeSlots";
+import { getMockResponseName } from "./utils/getMockResponseName";
 import { handleDateFromURL } from "./utils/handleDateFromURL";
 
 export function Scheduler() {
 	const [selectedSlot, setSelectedSlot] = useState<string | null>(null);
 	const [currentMonth, setCurrentMonth] = useState(new Date());
 	const [selectedDate, setSelectedDate] = useState<Date | undefined>();
+
 	const navigate = useNavigate();
 	const [searchParams] = useSearchParams();
 
 	const monthParam = searchParams.get("month") ?? format(new Date(), "yyyy-MM");
 	const dateParam = searchParams.get("date");
+
 	const selectedDateToDisplay = dateParam
 		? handleDateFromURL(dateParam)
 		: selectedDate;
@@ -31,15 +35,20 @@ export function Scheduler() {
 		0,
 	).toISOString();
 
-	const { timeSlotsByDay, isLoading } = useTimeSlots(
+	const mockResponseName = useMemo(
+		() => getMockResponseName(monthParam),
+		[monthParam],
+	);
+
+	const { timeSlotsByDay, isLoading, isError } = useTimeSlots(
 		startDateTime,
 		endDateTime,
-		monthParam,
+		mockResponseName,
 	);
 
 	const removeSlotMutation = useRemoveSlotMutation();
 
-	const handleDateSelect = (date: Date | null) => {
+	function handleDateSelect(date: Date | null) {
 		if (!date) return;
 
 		const zonedDate = toZonedTime(date, "UTC");
@@ -49,20 +58,22 @@ export function Scheduler() {
 		const newMonth = format(zonedDate, "yyyy-MM");
 		const newDate = format(zonedDate, "yyyy-MM-dd");
 		navigate(`?month=${newMonth}&date=${newDate}`);
-	};
+	}
 
-	const handleFormSubmit = async (data: { name: string; email: string }) => {
+	async function handleFormSubmit(data: { name: string; email: string }) {
 		if (!selectedSlot || !selectedDateToDisplay) return;
 
 		try {
 			const selectedDay = format(selectedDateToDisplay, "yyyy-MM-dd");
 			console.log({ timeSlot: selectedSlot, ...data });
+
 			removeSlotMutation.mutate({ date: selectedDay, slot: selectedSlot });
+
 			setSelectedSlot(null);
 		} catch (error) {
 			console.error("Failed to submit form:", error);
 		}
-	};
+	}
 
 	const slotsForSelectedDate = useMemo(() => {
 		if (!selectedDateToDisplay) return [];
@@ -70,17 +81,25 @@ export function Scheduler() {
 		return timeSlotsByDay.get(dateKey) || [];
 	}, [timeSlotsByDay, selectedDateToDisplay]);
 
-	const maxWidthClass = selectedDateToDisplay
-		? "max-w-[1060px] transition-all duration-700"
-		: "max-w-[800px]";
-
 	const bookableDates = Array.from(timeSlotsByDay.keys()).map(
 		(date) => new Date(handleDateFromURL(date)),
 	);
 
-	const selectedDates = selectedDateToDisplay
+	const selectedDateString = selectedDateToDisplay
 		? format(selectedDateToDisplay, "yyyy-MM-dd")
 		: "";
+
+	const maxWidthClass = selectedDateToDisplay
+		? "max-w-[1060px] transition-all duration-700"
+		: "max-w-[800px]";
+
+	if (isError) {
+		return (
+			<div className="flex flex-col items-center my-8">
+				<p className="text-red-500 mt-4">Failed to load data</p>
+			</div>
+		);
+	}
 
 	return (
 		<div
@@ -88,6 +107,7 @@ export function Scheduler() {
 		>
 			<section className="flex flex-col lg:flex-row w-full justify-between md:border mx-auto lg:min-h-[85%] rounded-md md:shadow-xl overflow-auto">
 				<ScheduleInfo />
+
 				{selectedSlot ? (
 					<UserForm onSubmit={handleFormSubmit} />
 				) : (
@@ -99,10 +119,20 @@ export function Scheduler() {
 							isDaySelected={selectedDateToDisplay ? () => true : undefined}
 							onSelect={handleDateSelect}
 							bookableDates={bookableDates}
+							onMonthChange={(newMonth) => {
+								const zonedDate = toZonedTime(newMonth, "UTC");
+								setCurrentMonth(zonedDate);
+
+								setSelectedDate(undefined);
+
+								navigate(`?month=${format(zonedDate, "yyyy-MM")}`);
+							}}
+							currentMonth={currentMonth}
 							required
 						/>
+
 						<TimeSlotSelector
-							selectedDate={selectedDates}
+							selectedDate={selectedDateString}
 							timeSlots={slotsForSelectedDate}
 							onSelect={setSelectedSlot}
 						/>

@@ -5,6 +5,8 @@ import { buttonVariants } from "./ui/button";
 type CalendarProps = DayPickerProps & {
 	bookableDates?: Date[];
 	isDaySelected?: (date: Date) => boolean;
+	onMonthChange?: (newMonth: Date) => void;
+	currentMonth?: Date;
 };
 
 function Calendar({
@@ -13,6 +15,8 @@ function Calendar({
 	showOutsideDays = true,
 	isDaySelected,
 	bookableDates,
+	onMonthChange: externalMonthChange,
+	currentMonth,
 	...props
 }: CalendarProps) {
 	const handleDisabled = (date: Date) => {
@@ -21,13 +25,21 @@ function Calendar({
 		);
 	};
 
+	function handleMonthChange(newMonth: Date) {
+		if (externalMonthChange) {
+			externalMonthChange(newMonth);
+		}
+	}
+
 	return (
 		<div className={`p-5 mx-auto ${isDaySelected ? "hidden md:block" : ""}`}>
 			<h1 className="text-xl font-bold text-accent-foreground pb-5">
 				Select a Date and Time
 			</h1>
+
 			<DayPicker
 				className={cn("p-0", className)}
+				onMonthChange={handleMonthChange}
 				modifiers={{
 					bookable: bookableDates,
 				}}
@@ -81,6 +93,7 @@ function Calendar({
 		</div>
 	);
 }
+
 Calendar.displayName = "Calendar";
 
 export { Calendar };
