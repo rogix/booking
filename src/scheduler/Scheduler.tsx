@@ -16,10 +16,10 @@ export function Scheduler() {
 	const [currentMonth, setCurrentMonth] = React.useState<Date>(new Date());
 	const [selectedDate, setSelectedDate] = React.useState<Date | undefined>();
 
-	const [formData, setFormData] = React.useState<{
-		name: string;
-		email: string;
-	} | null>(null);
+	// const [formData, setFormData] = React.useState<{
+	// 	name: string;
+	// 	email: string;
+	// } | null>(null);
 
 	const navigate = useNavigate();
 	const [searchParams] = useSearchParams();
