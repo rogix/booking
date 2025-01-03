@@ -70,7 +70,7 @@ export function Scheduler() {
 			removeSlotMutation.mutate({ date: selectedDay, slot: selectedSlot });
 
 			setSelectedSlot(null);
-			setFormData(data);
+			// setFormData(data);
 		} catch (error) {
 			console.error("Failed to submit form:", error);
 		}
