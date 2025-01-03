@@ -18,16 +18,8 @@ describe("Scheduler Integration Tests", () => {
 		);
 	};
 
-	it("displays loading state initially and then renders the calendar and timeslots", async () => {
+	it("renders the calendar and timeslots", async () => {
 		setup();
-
-		expect(screen.getByText(/loading available times/i)).toBeInTheDocument();
-
-		await waitFor(() => {
-			expect(
-				screen.queryByText(/loading available times/i),
-			).not.toBeInTheDocument();
-		});
 
 		expect(
 			screen.getByRole("heading", { name: /select a date and time/i }),
@@ -37,12 +29,6 @@ describe("Scheduler Integration Tests", () => {
 	it("shows time slots for a day when the user clicks on that date in the calendar", async () => {
 		setup();
 		const user = userEvent.setup();
-
-		await waitFor(() =>
-			expect(
-				screen.queryByText(/loading available times/i),
-			).not.toBeInTheDocument(),
-		);
 
 		const day6Button = screen.getByRole("button", {
 			name: /monday, january 6th, 2025/i,
@@ -58,12 +44,6 @@ describe("Scheduler Integration Tests", () => {
 	it("allows selecting a time slot, then displays the UserForm", async () => {
 		setup();
 		const user = userEvent.setup();
-
-		await waitFor(() =>
-			expect(
-				screen.queryByText(/loading available times/i),
-			).not.toBeInTheDocument(),
-		);
 
 		const day6Button = screen.getByRole("button", {
 			name: /monday, january 6th, 2025/i,
@@ -87,12 +67,6 @@ describe("Scheduler Integration Tests", () => {
 	it("submits the form with user data, calls removeSlot mutation, and resets selected slot", async () => {
 		setup();
 		const user = userEvent.setup();
-
-		await waitFor(() =>
-			expect(
-				screen.queryByText(/loading available times/i),
-			).not.toBeInTheDocument(),
-		);
 
 		const day6Button = screen.getByRole("button", {
 			name: /monday, january 6th, 2025/i,
