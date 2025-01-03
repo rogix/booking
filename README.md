@@ -1,17 +1,6 @@
 # Booking Project
 
-A project for scheduling appointments, featuring:
-
-- **TypeScript** for type safety
-- **React** for UI
-- **Vite** for fast development and build times
-- **React Query** for data fetching and caching
-- **React Router** for client-side routing
-- **Mock Service Worker (MSW)** for API request mocking in development and test
-- **react-hook-form** for form handling
-- **Husky** + **lint-staged** for Git hooks
-- **Vitest** + **Testing Library** for testing
-- **Tailwind CSS** for styling
+A project for scheduling appointments. Users can select a date, time slot, and provide their name and email to book an appointment.
 
 ---
 
@@ -33,7 +22,7 @@ A project for scheduling appointments, featuring:
 1. **Clone the repository**:
 
 ```bash
-git clone https://github.com/your-username/booking-project.git
+git clone https://github.com/your-username/booking.git
 cd booking-project
 ```
 
@@ -49,9 +38,7 @@ pnpm install
 pnpm run dev
 ```
 
-4. **Open the source code and start editing!**
-
-Your site is now running at `http://localhost:5173`!
+The site is now running at `http://localhost:5173`!
 
 ---
 
