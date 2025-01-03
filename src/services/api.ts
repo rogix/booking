@@ -5,7 +5,6 @@ export const fetchAvailableTimes = async (
 	endDate: string,
 	mockResponseName: string,
 ): Promise<string[]> => {
-	console.log("mockResponseName", mockResponseName);
 	const response = await fetch(
 		`${API_BASE_URL}/appointment_availabilities/available_times?start_date_time=${startDate}&end_date_time=${endDate}`,
 		{

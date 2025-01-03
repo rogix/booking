@@ -8,6 +8,10 @@ import { ScheduleInfo } from "@/components/ScheduleInfo";
 import TimeSlotSelector from "@/components/TimeSlotSelector";
 import UserForm from "@/components/UserForm";
 
+import {
+	type BookingFormData,
+	useBookingPayload,
+} from "./hooks/useBookingPayload";
 import { useRemoveSlotMutation } from "./hooks/useRemoveSlotMutation";
 import { useTimeSlots } from "./hooks/useTimeSlots";
 import { getMockResponseName } from "./utils/getMockResponseName";
@@ -48,6 +52,11 @@ export function Scheduler() {
 
 	const removeSlotMutation = useRemoveSlotMutation();
 
+	const { buildPayload } = useBookingPayload(
+		selectedSlot,
+		selectedDateToDisplay,
+	);
+
 	function handleDateSelect(date: Date | null) {
 		if (!date) return;
 
@@ -58,21 +67,6 @@ export function Scheduler() {
 		const newMonth = format(zonedDate, "yyyy-MM");
 		const newDate = format(zonedDate, "yyyy-MM-dd");
 		navigate(`?month=${newMonth}&date=${newDate}`);
-	}
-
-	async function handleFormSubmit(data: { name: string; email: string }) {
-		if (!selectedSlot || !selectedDateToDisplay) return;
-
-		try {
-			const selectedDay = format(selectedDateToDisplay, "yyyy-MM-dd");
-			console.log({ timeSlot: selectedSlot, ...data });
-
-			removeSlotMutation.mutate({ date: selectedDay, slot: selectedSlot });
-
-			setSelectedSlot(null);
-		} catch (error) {
-			console.error("Failed to submit form:", error);
-		}
 	}
 
 	const slotsForSelectedDate = useMemo(() => {
@@ -92,6 +86,24 @@ export function Scheduler() {
 	const maxWidthClass = selectedDateToDisplay
 		? "max-w-[1060px] transition-all duration-700"
 		: "max-w-[800px]";
+
+	async function handleFormSubmit(data: BookingFormData) {
+		if (!selectedSlot || !selectedDateToDisplay) return;
+
+		try {
+			const payload = buildPayload(data);
+			if (!payload) return;
+
+			const selectedDay = format(selectedDateToDisplay, "yyyy-MM-dd");
+			removeSlotMutation.mutate({ date: selectedDay, slot: payload.timeSlot });
+
+			console.log("Payload:", payload);
+
+			setSelectedSlot(null);
+		} catch (error) {
+			console.error("Failed to submit form:", error);
+		}
+	}
 
 	if (isError) {
 		return (
