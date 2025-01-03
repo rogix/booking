@@ -7,16 +7,13 @@ export const useTimeSlots = (
 	endDateTime: string,
 	monthParam: string,
 ) => {
-	const mockResponseName = monthParam === "2024-12" ? "Dec2024" : "Jan2025";
-
 	const {
 		data: slots = [],
 		isLoading,
 		isError,
 	} = useQuery({
-		queryKey: ["availableTimes", startDateTime, endDateTime, mockResponseName],
-		queryFn: () =>
-			fetchAvailableTimes(startDateTime, endDateTime, mockResponseName),
+		queryKey: ["availableTimes", startDateTime, endDateTime, monthParam],
+		queryFn: () => fetchAvailableTimes(startDateTime, endDateTime, monthParam),
 	});
 
 	const timeSlotsByDay = React.useMemo(() => {
