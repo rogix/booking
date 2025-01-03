@@ -2,6 +2,8 @@
 
 A project for scheduling appointments. Users can select a date, time slot, and provide their name and email to book an appointment.
 
+<img width="1203" alt="image" src="https://github.com/user-attachments/assets/e20b4b08-4903-48cc-9816-59daa9f6bed4" />
+
 ---
 
 ## Table of Contents
