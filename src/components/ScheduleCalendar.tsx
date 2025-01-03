@@ -32,6 +32,7 @@ function Calendar({
 					bookable: bookableDates,
 				}}
 				disabled={handleDisabled}
+				timeZone="UTC"
 				classNames={{
 					months: "flex flex-col",
 					month: "justify-center",

@@ -44,7 +44,7 @@ const TimeSlotSelector: React.FC<TimeSlotSelectorProps> = ({
 								}`}
 								size="lg"
 							>
-								{format(new Date(slot), "HH:mm")}
+								{format(new Date(handleDateFromURL(slot)), "HH:mm")}
 							</Button>
 							{selectedIndex === index && (
 								<Button
