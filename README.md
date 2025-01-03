@@ -40,6 +40,10 @@ pnpm run dev
 
 The site is now running at `http://localhost:5173`!
 
+> **Important**: Make sure to have the API server running as well. A simple mock server is created for testing purposes. Check the `.env.local` file for the API base URL. This file is kept out of `.gitignore` for demonstration purposes.
+
+> **Note**: Create a `.env` file based on the `.env.example` file and adjust the API base URL if needed.
+
 ---
 
 ## Project Structure
@@ -88,17 +92,17 @@ booking-project/
 
 ## Key Files
 
-- **src/scheduler/Scheduler.tsx**  
-  Main scheduling component that composes the calendar, timeslot selector, and user form.
+`src/scheduler/Scheduler.tsx`
+Main component that orchestrates the scheduling process. It composes the calendar, time slot selector, and user form components.
 
-- **useTimeSlots.ts / useRemoveSlotMutation.ts**  
-  React Query hooks for fetching and mutating time slots.
+`useTimeSlots.ts / useRemoveSlotMutation.ts``  
+ React Query hooks for fetching and mutating time slots.
 
-- **api.ts**  
-  Contains the `fetchAvailableTimes` function using the native fetch API.
+`api.ts`  
+ Contains the `fetchAvailableTimes` function using the native fetch API.
 
-- **mocks/handlers.ts**  
-  MSW handlers that intercept fetch calls and return mock data during development/testing.
+`mocks/handlers.ts`
+MSW handlers that intercept fetch calls and return mock data during development/testing.
 
 ---
 
