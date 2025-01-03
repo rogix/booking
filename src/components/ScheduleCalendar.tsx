@@ -32,7 +32,6 @@ function Calendar({
 					bookable: bookableDates,
 				}}
 				disabled={handleDisabled}
-				timeZone="UTC"
 				classNames={{
 					months: "flex flex-col",
 					month: "justify-center",
@@ -54,12 +53,13 @@ function Calendar({
 					week: "flex w-full mt-2 justify-center",
 					day: cn(
 						buttonVariants({ variant: "ghost" }),
-						"h-11 w-11 m-1 font-bold aria-selected:bg-primary text-primary rounded-full bg-primary/10 hover:bg-primary/10 hover:text-primary",
+						"h-11 w-11 m-1 font-bold aria-selected:bg-primary text-blue-500 rounded-full bg-primary/10 hover:bg-primary/10 hover:text-primary",
 					),
 					range_end: "day-range-end",
 					selected:
 						"bg-primary text-primary-foreground hover:bg-primary hover:text-primary-foreground focus:bg-primary focus:text-primary-foreground",
-					today: "text-blue-500 bg-white hover:bg-white hover:text-primary",
+					today:
+						"text-blue-500 bg-primary/20 hover:bg-pimary/10 hover:text-primary",
 					outside:
 						"day-outside text-muted-foreground aria-selected:bg-accent/50 aria-selected:text-muted-foreground",
 					disabled:
