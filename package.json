@@ -61,8 +61,7 @@
   },
   "lint-staged": {
     "*.{js,jsx,ts,tsx}": [
-      "biome lint",
-      "biome --fix",
+      "biome lint --write ./src",
       "biome check --write ./src"
     ]
   },
