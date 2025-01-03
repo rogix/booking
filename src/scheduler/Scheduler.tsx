@@ -7,14 +7,18 @@ import { Calendar } from "@/components/ScheduleCalendar";
 import { ScheduleInfo } from "@/components/ScheduleInfo";
 import TimeSlotSelector from "@/components/TimeSlotSelector";
 import UserForm from "@/components/UserForm";
+import { useToast } from "@/hooks/use-toast";
 import { useRemoveSlotMutation } from "./hooks/useRemoveSlotMutation";
 import { useTimeSlots } from "./hooks/useTimeSlots";
 import { handleDateFromURL } from "./utils/handleDateFromURL";
+
+import { Button } from "@/components/ui/button";
 
 export function Scheduler() {
 	const [selectedSlot, setSelectedSlot] = React.useState<string | null>(null);
 	const [currentMonth, setCurrentMonth] = React.useState<Date>(new Date());
 	const [selectedDate, setSelectedDate] = React.useState<Date | undefined>();
+	const { toast } = useToast();
 
 	// const [formData, setFormData] = React.useState<{
 	// 	name: string;
@@ -86,11 +90,11 @@ export function Scheduler() {
 		return timeSlotsByDay.get(dateKey) || [];
 	}, [timeSlotsByDay, selectedDateToDisplay]);
 
-	if (isLoading) {
-		return <div>Loading available times...</div>;
-	}
 	if (isError) {
-		return <div>Failed to load available times.</div>;
+		toast({
+			title: "Error",
+			description: "Failed to load data",
+		});
 	}
 
 	const maxW = selectedDateToDisplay
@@ -111,6 +115,7 @@ export function Scheduler() {
 						<Calendar
 							mode="single"
 							selected={selectedDateToDisplay}
+							className={isLoading ? "opacity-50 animate-pulse" : ""}
 							isDaySelected={selectedDateToDisplay ? () => true : undefined}
 							onSelect={handleDateSelect}
 							bookableDates={Array.from(timeSlotsByDay.keys()).map(
