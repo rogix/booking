@@ -13,7 +13,6 @@ A project for scheduling appointments. Users can select a date, time slot, and p
 - [Mocking API Requests](#mocking-api-requests)
 - [Husky & lint-staged](#husky--lint-staged)
 - [Testing](#testing)
-- [License](#license)
 
 ---
 
@@ -26,16 +25,18 @@ git clone https://github.com/your-username/booking.git
 cd booking-project
 ```
 
+OBS: I use `pnpm` as the package manager in this project. If you don't have it installed, you can use `npm` or `yarn` instead.
+
 2. **Install dependencies**:
 
 ```bash
-pnpm install
+pnpm install or npm install
 ```
 
 3. **Start the development server**:
 
 ```bash
-pnpm run dev
+pnpm run dev or npm run dev
 ```
 
 The site is now running at `http://localhost:5173`!
@@ -92,17 +93,17 @@ booking-project/
 
 ## Key Files
 
-`src/scheduler/Scheduler.tsx`
-Main component that orchestrates the scheduling process. It composes the calendar, time slot selector, and user form components.
+- `src/scheduler/Scheduler.tsx`
+  Main component that orchestrates the scheduling process. It composes the calendar, time slot selector, and user form components.
 
-`useTimeSlots.ts / useRemoveSlotMutation.ts``  
- React Query hooks for fetching and mutating time slots.
+- `useTimeSlots.ts / useRemoveSlotMutation.ts`
+  React Query hooks for fetching and mutating time slots.
 
-`api.ts`  
- Contains the `fetchAvailableTimes` function using the native fetch API.
+- `api.ts`  
+  Contains the `fetchAvailableTimes` function using the native fetch API.
 
-`mocks/handlers.ts`
-MSW handlers that intercept fetch calls and return mock data during development/testing.
+- `mocks/handlers.ts`
+  MSW handlers that intercept fetch calls and return mock data during development/testing.
 
 ---
 
